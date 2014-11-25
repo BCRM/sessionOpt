@@ -6,11 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-
+import org.uncommons.watchmaker.framework.CachingFitnessEvaluator;
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
 import org.uncommons.watchmaker.framework.EvolutionObserver;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
+import org.uncommons.watchmaker.framework.FitnessEvaluator;
 import org.uncommons.watchmaker.framework.GenerationalEvolutionEngine;
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
@@ -35,7 +36,7 @@ public class SessionOpt {
 		operators.add(new MutateOperator());
 		
 		EvolutionaryOperator<Solution> evolutionaryOperator = new EvolutionPipeline<Solution>(operators);
-		SOFitnessEvaluator fitnessEvaluator = new SOFitnessEvaluator();
+		FitnessEvaluator<Solution> fitnessEvaluator = new CachingFitnessEvaluator<Solution>(new SOFitnessEvaluator());
 		RouletteWheelSelection selectionStrategy = new RouletteWheelSelection();
 		Random rng = new org.uncommons.maths.random.MersenneTwisterRNG();
 		
