@@ -32,7 +32,7 @@ public class SessionOpt {
 		operators.add(new MutateOperator());
 		
 		EvolutionaryOperator<Solution> evolutionaryOperator = new EvolutionPipeline<Solution>(operators);
-		FitnessEvaluator<Solution> fitnessEvaluator = new CachingFitnessEvaluator<Solution>(new SOFitnessEvaluator());
+		FitnessEvaluator<Solution> fitnessEvaluator = new SOFitnessEvaluator();
 		RouletteWheelSelection selectionStrategy = new RouletteWheelSelection();
 		Random rng = new org.uncommons.maths.random.MersenneTwisterRNG();
 		

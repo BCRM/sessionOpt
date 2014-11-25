@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
-import sessionOpt.entities.Session;
 import sessionOpt.entities.Slot;
 import sessionOpt.entities.Solution;
 
@@ -24,14 +23,25 @@ public class MutateOperator implements EvolutionaryOperator<Solution> {
 			while (rnd2 == rnd1 && totalSize > 1){
 				rnd2 = rng.nextInt(totalSize);
 			}
-			
+			if (rnd1 > rnd2){
+				int tmp = rnd1;
+				rnd1 = rnd2;
+				rnd2 = tmp;
+			}
 			List<Slot> slots = new ArrayList<Slot>(solution.getSlots().size());
 			slots.addAll(solution.getSlots());
-
-			Session tmp = slots.get(rnd1).getSession();
-			slots.get(rnd1).setSession(slots.get(rnd2).getSession());
-			slots.get(rnd2).setSession(tmp);
-
+			Slot slot1 = slots.get(rnd1);
+			Slot slot2 = slots.get(rnd2); 
+			slots.remove(rnd2);
+			slots.remove(rnd1);
+			
+			Slot newSlot = new Slot(slot1.getRoom(), slot1.getDate());
+			newSlot.setSession(slot2.getSession());
+			slots.add(newSlot);
+			
+			newSlot = new Slot(slot2.getRoom(), slot2.getDate());
+			newSlot.setSession(slot1.getSession());
+			slots.add(newSlot);
 			
 //			System.out.println("Switched " + slots.get(rnd1).getRoom().getName() + "/"+ slots.get(rnd1).getSession() + " with " + slots.get(rnd2).getRoom().getName() + "/" + slots.get(rnd2).getSession());
 			
