@@ -4,4 +4,5 @@ dependencies {
 	compile group: 'org.uncommons.watchmaker', name: 'watchmaker-framework', version: ext.libraryVersions.watchmaker
 	compile group: 'org.uncommons.watchmaker', name: 'watchmaker-swing', version: ext.libraryVersions.watchmaker
 	compile group: 'org.uncommons.maths', name: 'uncommons-maths', version: ext.libraryVersions.uncommonsMath
+	compile group: 'com.google.guava', name: 'guava', version: ext.libraryVersions.guava
 }

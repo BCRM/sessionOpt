@@ -17,6 +17,7 @@ subprojects {
 	ext.libraryVersions = [
 		log4j: '2.0-rc1',
 		watchmaker: '0.7.1',
-		uncommonsMath: '1.2.2'
+		uncommonsMath: '1.2.2',
+		guava: '16.0.1'
 	]	
 }
