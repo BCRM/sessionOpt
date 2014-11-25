@@ -31,5 +31,9 @@ public class Slot {
 	public void setSession(Session session) {
 		this.session = session;
 	}
+	
+	public int getHappiness() {
+		return session.getHappiness(room);
+	}
 
 }

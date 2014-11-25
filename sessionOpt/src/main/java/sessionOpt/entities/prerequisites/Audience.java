@@ -1,5 +1,6 @@
 package sessionOpt.entities.prerequisites;
 
+import sessionOpt.SOFitnessEvaluator;
 import sessionOpt.entities.Feature;
 import sessionOpt.entities.features.Seats;
 
@@ -27,5 +28,10 @@ public class Audience extends IntegerPrerequisite {
 		}
 		
 		return 0;
+	}
+
+	@Override
+	public int getUnsatisfiedPenalty() {
+		return SOFitnessEvaluator.LARGE_PENALTY;
 	}
 }
