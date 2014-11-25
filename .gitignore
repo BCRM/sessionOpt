@@ -1,2 +1,6 @@
 gradle/wrapper/dists/
 .gradle
+sessionOpt/.classpath
+sessionOpt/.project
+sessionOpt/.settings/
+sessionOpt/bin
