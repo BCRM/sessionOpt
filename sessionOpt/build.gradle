@@ -1,0 +1,6 @@
+dependencies {
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: ext.libraryVersions.log4j
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: ext.libraryVersions.log4j
+	compile group: 'org.uncommons.watchmaker', name: 'watchmaker-framework', version: ext.libraryVersions.watchmaker
+	compile group: 'org.uncommons.watchmaker', name: 'watchmaker-swing', version: ext.libraryVersions.watchmaker
+}
