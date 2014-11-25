@@ -25,6 +25,7 @@ public class Session {
 					for (Feature feat: room.getFeatures()) {
 						if (pre.getSatisfyingFeature().equals(feat.getClass())) {
 							result += pre.getHappiness(feat);
+							foundFeature = true;
 						}
 					}
 				}
