@@ -2,8 +2,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import operators2.CrossoverOperator;
-import operators2.MutateOperator;
+import operators.CrossoverOperator;
+import operators.MutateOperator;
 
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
