@@ -23,11 +23,19 @@ public class Audience extends IntegerPrerequisite {
 	
 	@Override
 	public int getHappiness(Feature feature) {
+		int result = 0;
+		
 		if (feature.getClass().equals(getSatisfyingFeature())) {
-			return getSize() - ((Seats)feature).getSize(); 
+			Seats seats = (Seats)feature;
+			if (seats.getSize() < getSize()) {
+				result = SOFitnessEvaluator.MEDIUM_PENALTY + getSize() - seats.getSize(); 
+			} else {
+				result = seats.getSize() - getSize();
+			}
+
 		}
 		
-		return 0;
+		return result;
 	}
 
 	@Override
