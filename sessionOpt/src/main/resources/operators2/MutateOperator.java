@@ -1,4 +1,4 @@
-package Operators;
+package operators2;
 
 import java.util.List;
 import java.util.Random;
@@ -7,7 +7,7 @@ import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
 import entities.Solution;
 
-public class CrossoverOperator implements EvolutionaryOperator<Solution> {
+public class MutateOperator implements EvolutionaryOperator<Solution> {
 
 	@Override
 	public List<Solution> apply(List<Solution> selectedCandidates, Random rng) {
