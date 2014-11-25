@@ -10,12 +10,22 @@ public class Audience extends IntegerPrerequisite {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Feature feature) {
-		return feature.getClass().equals(Seats.class);
+	public String getName() {
+		return "Audience of " + getSize();
 	}
 
 	@Override
-	public String getName() {
-		return "Audience of " + getSize();
+	public Class<? extends Feature> getSatisfyingFeature() {
+		return Seats.class;
+	}
+	
+	
+	@Override
+	public int getHappiness(Feature feature) {
+		if (feature.getClass().equals(getSatisfyingFeature())) {
+			return getSize() - ((Seats)feature).getSize(); 
+		}
+		
+		return 0;
 	}
 }

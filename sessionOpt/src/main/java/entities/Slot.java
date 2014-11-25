@@ -15,12 +15,6 @@ public class Slot {
 		this.date = date;
 	}
 	
-//	public Slot(Room room, Date date, Session session){
-//		this.room = room;
-//		this.session = session;
-//		this.date = date;
-//	}
-
 	public Room getRoom() {
 		return room;
 	}

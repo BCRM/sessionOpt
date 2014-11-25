@@ -1,6 +1,7 @@
 package entities;
 
 public interface Prerequisite {
-	public boolean isSatisfiedBy(Feature feature);
+	public Class<? extends Feature> getSatisfyingFeature();
+	public int getHappiness(Feature feature);
 	public String getName();
 }

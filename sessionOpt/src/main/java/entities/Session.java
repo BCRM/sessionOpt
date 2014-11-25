@@ -17,13 +17,20 @@ public class Session {
 		this.preRequisites = preRequisites;
 	}
 	
-	public boolean isSatisfiedBy (Feature feature) {
-		for (Prerequisite pre: getPreRequisites()){
-			if (pre.isSatisfiedBy(feature)){
-				return true;
+	public int getHappiness(Room room) {
+		int result = 0;
+		for (Prerequisite pre: getPreRequisites()) {
+			boolean foundFeature = false;
+			for (Feature feat: room.getFeatures()) {
+				if (pre.getSatisfyingFeature().equals(feat.getClass())) {
+					result += pre.getHappiness(feat);
+				}
+			}
+			if (!foundFeature) {
+				result += 1000;
 			}
 		}
-		return false;
+		return result;
 	}
 
 	public String getName() {
