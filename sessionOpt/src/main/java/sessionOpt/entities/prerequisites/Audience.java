@@ -1,7 +1,7 @@
-package entities.prerequisites;
+package sessionOpt.entities.prerequisites;
 
-import entities.Feature;
-import entities.features.Seats;
+import sessionOpt.entities.Feature;
+import sessionOpt.entities.features.Seats;
 
 public class Audience extends IntegerPrerequisite {
 	

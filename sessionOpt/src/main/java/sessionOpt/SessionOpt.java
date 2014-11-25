@@ -1,3 +1,4 @@
+package sessionOpt;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -5,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import operators.MutateOperator;
 
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
@@ -17,9 +17,11 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
 
-import entities.Room;
-import entities.Session;
-import entities.Solution;
+import sessionOpt.entities.Room;
+import sessionOpt.entities.Session;
+import sessionOpt.entities.Solution;
+import sessionOpt.operators.MutateOperator;
+
 
 
 public class SessionOpt {
@@ -52,7 +54,7 @@ public class SessionOpt {
 		});
 
 		//Finding the result
-		Solution result = engine.evolve(20, 1, new GenerationCount(50));
+		Solution result = engine.evolve(50, 1, new GenerationCount(50));
 		System.out.println(result);
 	}
 	

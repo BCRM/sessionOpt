@@ -1,8 +1,9 @@
-package entities;
+package sessionOpt.entities;
 
 import java.util.List;
 
-import entities.Prerequisite;
+import sessionOpt.entities.Prerequisite;
+
 
 public class Session {
 	private String name;

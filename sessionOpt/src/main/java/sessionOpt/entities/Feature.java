@@ -1,4 +1,4 @@
-package entities;
+package sessionOpt.entities;
 
 
 public interface Feature {

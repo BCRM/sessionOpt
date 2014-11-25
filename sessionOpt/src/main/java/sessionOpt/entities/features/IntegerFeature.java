@@ -1,6 +1,6 @@
-package entities.features;
+package sessionOpt.entities.features;
 
-import entities.Feature;
+import sessionOpt.entities.Feature;
 
 public abstract class IntegerFeature implements Feature {
 	

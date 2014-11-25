@@ -1,9 +1,10 @@
-package entities;
+package sessionOpt.entities;
 
 import java.util.Date;
 
-import entities.Room;
-import entities.Session;
+import sessionOpt.entities.Room;
+import sessionOpt.entities.Session;
+
 
 public class Slot {
 	private Room room;

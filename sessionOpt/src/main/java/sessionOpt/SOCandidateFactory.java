@@ -1,3 +1,4 @@
+package sessionOpt;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -6,9 +7,10 @@ import java.util.Random;
 
 import org.uncommons.watchmaker.framework.CandidateFactory;
 
-import entities.Room;
-import entities.Session;
-import entities.Solution;
+import sessionOpt.entities.Room;
+import sessionOpt.entities.Session;
+import sessionOpt.entities.Solution;
+
 
 
 public class SOCandidateFactory implements CandidateFactory<Solution> {

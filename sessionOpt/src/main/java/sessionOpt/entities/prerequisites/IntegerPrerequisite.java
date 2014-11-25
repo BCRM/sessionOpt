@@ -1,6 +1,6 @@
-package entities.prerequisites;
+package sessionOpt.entities.prerequisites;
 
-import entities.Prerequisite;
+import sessionOpt.entities.Prerequisite;
 
 public abstract class IntegerPrerequisite implements Prerequisite {
 	

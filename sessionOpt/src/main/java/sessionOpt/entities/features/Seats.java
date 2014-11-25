@@ -1,4 +1,4 @@
-package entities.features;
+package sessionOpt.entities.features;
 
 
 public class Seats extends IntegerFeature {

@@ -1,14 +1,14 @@
-package operators;
+package sessionOpt.operators;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
-import entities.Slot;
-import entities.Solution;
+import sessionOpt.entities.Slot;
+import sessionOpt.entities.Solution;
+
 
 public class MutateOperator implements EvolutionaryOperator<Solution> {
 
@@ -20,7 +20,7 @@ public class MutateOperator implements EvolutionaryOperator<Solution> {
 			int rnd1 = rng.nextInt(totalSize);
 			int rnd2 = rng.nextInt(totalSize);
 			//Nicht aufs gleiche. Das ist dumpf...
-			while (rnd2 == rnd1){
+			while (rnd2 == rnd1 && totalSize > 1){
 				rnd2 = rng.nextInt(totalSize);
 			}
 			

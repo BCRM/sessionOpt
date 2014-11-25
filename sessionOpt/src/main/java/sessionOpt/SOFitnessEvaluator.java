@@ -1,9 +1,11 @@
+package sessionOpt;
 import java.util.List;
 
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
 
-import entities.Slot;
-import entities.Solution;
+import sessionOpt.entities.Slot;
+import sessionOpt.entities.Solution;
+
 
 
 public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{

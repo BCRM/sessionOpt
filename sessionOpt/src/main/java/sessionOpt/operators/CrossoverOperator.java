@@ -1,11 +1,12 @@
-package operators;
+package sessionOpt.operators;
 
 import java.util.List;
 import java.util.Random;
 
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
-import entities.Solution;
+import sessionOpt.entities.Solution;
+
 
 public class CrossoverOperator implements EvolutionaryOperator<Solution> {
 
