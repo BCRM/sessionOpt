@@ -24,8 +24,4 @@ public class Slot {
 	public Date getDate() {
 		return date;
 	}
-	
-	public int getScore() {
-return 1;	}
-	
 }
