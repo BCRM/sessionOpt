@@ -86,7 +86,7 @@ public class SessionOpt {
 		Date today = new Date();
 		c.setTime(today);
 		for (int i = 9; i < 12; i++){
-			c.set(Calendar.HOUR, i);
+			c.set(Calendar.HOUR_OF_DAY, i);
 			result.add(c.getTime());
 		}
 		return result;
