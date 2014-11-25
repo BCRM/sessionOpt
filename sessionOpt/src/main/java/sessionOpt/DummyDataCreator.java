@@ -38,6 +38,8 @@ public class DummyDataCreator {
 	static List<Session> createDummySessions(){
 		ArrayList<Session> result = new ArrayList<Session>();
 		result.add(new Session("Stricken 1x1", createRandomSpeakers(),createDummyAudience(10)));
+		result.add(new Session("Stricken 2x2", createRandomSpeakers(),createDummyAudience(20)));
+		result.add(new Session("Stricken 3x3", createRandomSpeakers(),createDummyAudience(10)));
 		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers(),createDummyAudience(20)));
 		result.add(new Session("PHP is the new cobol", createRandomSpeakers(),createDummyAudience(30)));
 		result.add(new Session("Futurama", createRandomSpeakers(),createDummyAudience(40)));

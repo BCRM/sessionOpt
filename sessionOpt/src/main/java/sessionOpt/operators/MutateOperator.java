@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
+import sessionOpt.entities.Session;
 import sessionOpt.entities.Slot;
 import sessionOpt.entities.Solution;
 
@@ -27,9 +28,9 @@ public class MutateOperator implements EvolutionaryOperator<Solution> {
 			List<Slot> slots = new ArrayList<Slot>(solution.getSlots().size());
 			slots.addAll(solution.getSlots());
 
-			Slot tmp = slots.get(rnd1);
-			slots.set(rnd1, slots.get(rnd2));
-			slots.set(rnd2, tmp);
+			Session tmp = slots.get(rnd1).getSession();
+			slots.get(rnd1).setSession(slots.get(rnd2).getSession());
+			slots.get(rnd2).setSession(tmp);
 
 			
 //			System.out.println("Switched " + slots.get(rnd1).getRoom().getName() + "/"+ slots.get(rnd1).getSession() + " with " + slots.get(rnd2).getRoom().getName() + "/" + slots.get(rnd2).getSession());
