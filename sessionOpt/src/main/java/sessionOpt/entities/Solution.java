@@ -84,7 +84,7 @@ public class Solution {
 			for (Date date: getDates()){
 				b.append("--> " + date.getHours() + " Uhr:");
 				if (byDate.get(date).get(room).getSession() != null){
-					b.append(byDate.get(date).get(room).getSession()+ "\n");
+					b.append(byDate.get(date).get(room).getSession()+ " -- COST: " +byDate.get(date).get(room).getHappiness() + "\n");
 				} else {
 					b.append(" --- FREI ---\n");
 				}

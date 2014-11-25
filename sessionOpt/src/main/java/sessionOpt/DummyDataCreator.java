@@ -57,7 +57,7 @@ public class DummyDataCreator {
 		ArrayList<Room> result = new ArrayList<Room>();
 		result.add(new Room("Aachen", createDummySeats(10)));
 		result.add(new Room("Mainz", createDummySeats(20)));
-		result.add(new Room("New York", createDummySeats(30)));
+		result.add(new Room("New York", createDummySeats(50)));
 		return result;
 	}
 	

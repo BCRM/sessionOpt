@@ -51,7 +51,7 @@ public class SessionOpt {
 		});
 
 		//Finding the result
-		Solution result = engine.evolve(50, 1, new GenerationCount(50));
+		Solution result = engine.evolve(50, 1, new GenerationCount(500));
 		System.out.println(result);
 	}
 }
