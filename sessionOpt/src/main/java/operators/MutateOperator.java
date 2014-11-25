@@ -19,6 +19,11 @@ public class MutateOperator implements EvolutionaryOperator<Solution> {
 			int totalSize = solution.getSlots().size();
 			int rnd1 = rng.nextInt(totalSize);
 			int rnd2 = rng.nextInt(totalSize);
+			//Nicht aufs gleiche. Das ist dumpf...
+			while (rnd2 == rnd1){
+				rnd2 = rng.nextInt(totalSize);
+			}
+			
 			List<Slot> slots = new ArrayList<Slot>(solution.getSlots().size());
 			slots.addAll(solution.getSlots());
 
