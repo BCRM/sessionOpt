@@ -6,8 +6,9 @@ public class Room {
 	private String name;
 	private List<Feature> features;
 	
-	public Room(String name){
+	public Room(String name, List<Feature> features){
 		this.name = name;
+		this.features = features;
 	}
 	
 	public void addFeature(Feature f){

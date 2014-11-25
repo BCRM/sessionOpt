@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import sessionOpt.entities.Feature;
 import sessionOpt.entities.Prerequisite;
 import sessionOpt.entities.Room;
 import sessionOpt.entities.Session;
@@ -52,14 +53,14 @@ public class DummyDataCreator {
 
 	static List<Room> createDummyRooms(){
 		ArrayList<Room> result = new ArrayList<Room>();
-		result.add(new Room("Aachen"));
-		result.add(new Room("Mainz"));
-		result.add(new Room("New York"));
+		result.add(new Room("Aachen", createDummySeats(10)));
+		result.add(new Room("Mainz", createDummySeats(20)));
+		result.add(new Room("New York", createDummySeats(30)));
 		return result;
 	}
 	
-	static List<Prerequisite> createDummySeats(int size) {
-		ArrayList<Prerequisite> result = new ArrayList<Prerequisite>();
+	static List<Feature> createDummySeats(int size) {
+		ArrayList<Feature> result = new ArrayList<Feature>();
 		result.add(new Seats(size));
 		return result;
 	}
