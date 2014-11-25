@@ -21,9 +21,11 @@ public class Session {
 		if (getPreRequisites() != null) {
 			for (Prerequisite pre: getPreRequisites()) {
 				boolean foundFeature = false;
-				for (Feature feat: room.getFeatures()) {
-					if (pre.getSatisfyingFeature().equals(feat.getClass())) {
-						result += pre.getHappiness(feat);
+				if (room.getFeatures() != null) {
+					for (Feature feat: room.getFeatures()) {
+						if (pre.getSatisfyingFeature().equals(feat.getClass())) {
+							result += pre.getHappiness(feat);
+						}
 					}
 				}
 				

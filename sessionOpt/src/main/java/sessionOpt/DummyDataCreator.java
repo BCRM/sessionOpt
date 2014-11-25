@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
+import sessionOpt.entities.Prerequisite;
 import sessionOpt.entities.Room;
 import sessionOpt.entities.Session;
+import sessionOpt.entities.features.Seats;
+import sessionOpt.entities.prerequisites.Audience;
 
 public class DummyDataCreator {
 	
@@ -32,11 +36,17 @@ public class DummyDataCreator {
 
 	static List<Session> createDummySessions(){
 		ArrayList<Session> result = new ArrayList<Session>();
-		result.add(new Session("Stricken 1x1", createRandomSpeakers(),null));
-		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers(),null));
-		result.add(new Session("PHP is the new cobol", createRandomSpeakers(),null));
-		result.add(new Session("Futurama", createRandomSpeakers(),null));
-		result.add(new Session("Java. Eine Insel...", createRandomSpeakers(),null));
+		result.add(new Session("Stricken 1x1", createRandomSpeakers(),createDummyAudience(10)));
+		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers(),createDummyAudience(20)));
+		result.add(new Session("PHP is the new cobol", createRandomSpeakers(),createDummyAudience(30)));
+		result.add(new Session("Futurama", createRandomSpeakers(),createDummyAudience(40)));
+		result.add(new Session("Java. Eine Insel...", createRandomSpeakers(),createDummyAudience(50)));
+		return result;
+	}
+	
+	static List<Prerequisite> createDummyAudience(int size) {
+		ArrayList<Prerequisite> result = new ArrayList<Prerequisite>();
+		result.add(new Audience(size));
 		return result;
 	}
 
@@ -45,6 +55,12 @@ public class DummyDataCreator {
 		result.add(new Room("Aachen"));
 		result.add(new Room("Mainz"));
 		result.add(new Room("New York"));
+		return result;
+	}
+	
+	static List<Prerequisite> createDummySeats(int size) {
+		ArrayList<Prerequisite> result = new ArrayList<Prerequisite>();
+		result.add(new Seats(size));
 		return result;
 	}
 

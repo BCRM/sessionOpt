@@ -33,6 +33,10 @@ public class Slot {
 	}
 	
 	public int getHappiness() {
+		if (session == null) {
+			return 0;
+		}
+		
 		return session.getHappiness(room);
 	}
 
