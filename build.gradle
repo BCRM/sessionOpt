@@ -1,0 +1,20 @@
+apply from: 'wrapper.gradle'
+apply plugin: 'idea'
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'idea'
+	apply plugin: 'eclipse-wtp'
+	apply plugin: 'application'
+	
+	repositories {
+		ivy {
+			url = 'http://repo1.maven.org/maven2/'
+			layout "maven"
+		}
+	}
+	
+	ext.libraryVersions = [
+		log4j: '2.0-rc1'
+	]	
+}

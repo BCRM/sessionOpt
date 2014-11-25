@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- log4j2-text.xml zieht vor log4j2.xml -->
+<!-- Wir können hier also richtig schön debuggen -->
+<configuration status="WARN">	<!-- Hier steht das Loglevel für die Log4J-Konfiguration (intern) -->
+	<appenders>
+		<!-- Systemout -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{ISO8601} [%t] %-5level %logger{2} - %msg%n" />
+		</Console>
+
+	</appenders>
+	<loggers>
+		<!-- Hierarchische Logger. Alle Commands wollen wir trace -->
+		
+		<logger name="com.steria.services.serviceHelper.fi.configGenerator" level="debug" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="com.steria.services.serviceHelper.automation" level="info" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+	</loggers>
+</configuration>
