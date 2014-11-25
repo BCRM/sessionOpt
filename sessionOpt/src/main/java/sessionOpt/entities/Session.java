@@ -50,7 +50,7 @@ public class Session {
 	
 	@Override
 	public String toString() {
-		return getName();
+		return getName() + " -- " + getSpeaker();
 	}
 	
 	

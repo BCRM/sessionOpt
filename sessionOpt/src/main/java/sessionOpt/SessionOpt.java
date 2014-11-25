@@ -1,7 +1,4 @@
 package sessionOpt;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -18,18 +15,17 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
 
-import sessionOpt.entities.Room;
-import sessionOpt.entities.Session;
 import sessionOpt.entities.Solution;
 import sessionOpt.operators.MutateOperator;
 
 
 
 public class SessionOpt {
+
 	public static void main(String[] args) {
 		
 		//Preparation
-		CandidateFactory<Solution> candidateFactory = new SOCandidateFactory(createDummyRooms(), createDummySessions(), createDummyStartDates());
+		CandidateFactory<Solution> candidateFactory = new SOCandidateFactory(DummyDataCreator.createDummyRooms(), DummyDataCreator.createDummySessions(), DummyDataCreator.createDummyStartDates());
 		
 		List<EvolutionaryOperator<Solution>> operators = new LinkedList<EvolutionaryOperator<Solution>>();
 //		operators.add(new CrossoverOperator()); //TODO
@@ -57,41 +53,5 @@ public class SessionOpt {
 		//Finding the result
 		Solution result = engine.evolve(50, 1, new GenerationCount(50));
 		System.out.println(result);
-	}
-	
-	private static List<Room> createDummyRooms(){
-		ArrayList<Room> result = new ArrayList<Room>();
-		result.add(new Room("Aachen"));
-		result.add(new Room("Mainz"));
-		result.add(new Room("New York"));
-		return result;
-	}
-	
-	private static List<Session> createDummySessions(){
-		ArrayList<Session> result = new ArrayList<Session>();
-		result.add(new Session("Stricken 1x1", createRandomSpeakers(),null));
-		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers(),null));
-		result.add(new Session("PHP is the new cobol", createRandomSpeakers(),null));
-		result.add(new Session("Futurama", createRandomSpeakers(),null));
-		result.add(new Session("Java. Eine Insel...", createRandomSpeakers(),null));
-		return result;
-	}
-	
-	private static List<String> createRandomSpeakers(){
-		ArrayList<String> result = new ArrayList<String>();
-		result.add("Speaker #" + System.currentTimeMillis() % 1000);
-		return result;
-	}
-	
-	private static List<Date> createDummyStartDates(){
-		ArrayList<Date> result = new ArrayList<Date>();
-		Calendar c = Calendar.getInstance();
-		Date today = new Date();
-		c.setTime(today);
-		for (int i = 9; i < 12; i++){
-			c.set(Calendar.HOUR_OF_DAY, i);
-			result.add(c.getTime());
-		}
-		return result;
 	}
 }
