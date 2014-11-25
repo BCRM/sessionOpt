@@ -16,7 +16,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 		for (Slot slot: candidate.getSlots()){
 			if (slot.getRoom().getName().equals("Mainz") && slot.getSession() != null && slot.getSession().getName().equals("Bierbrauen leicht gemacht")){
 				//Alles gut...
-			} else {
+			} else if (slot.getSession() != null){
 				result += 1;
 			}
 		}
