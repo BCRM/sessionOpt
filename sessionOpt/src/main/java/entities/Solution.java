@@ -4,33 +4,46 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Solution {
 	private List<Room> rooms;
 	private List<Session> sessions;
+	private List<Date> dates;
 	
 	private List<Slot> slots = new ArrayList<Slot>();
-	private Map<Date, List<Slot>> byDate = new HashMap<Date, List<Slot>>();
+	private HashMap<Date, HashMap<Room, Slot>> byDate = new HashMap<Date, HashMap<Room, Slot>>();
 	
-	public Solution(List<Room> rooms, List<Session> sessions){
+	public Solution(List<Room> rooms, List<Date> dates){
 		this.rooms = rooms;
-		this.sessions = sessions;
+		this.dates = dates;
+		for (Room room: rooms){
+			for (Date date: dates){
+				Slot slot = new Slot(room, date);
+				slots.add(slot);
+				addSlotByDate(date, slot);
+			}
+		}
 	}
 	
-	public Solution(List<Room> rooms, List<Session> sessions, List<Slot> slots){
-		this(rooms, sessions);
+	public Solution(List<Room> rooms, List<Date> dates, List<Slot> slots){
+		this(rooms, dates);
 		this.slots = slots;
 	}
 	
-	public void add(Slot slot){
-		slots.add(slot);
-		List<Slot> slotsAtDate = byDate.get(slot.getDate());
+	private void addSlotByDate(Date date, Slot slot){
+		HashMap<Room, Slot> slotsAtDate = byDate.get(date);
 		if (slotsAtDate == null){
-			slotsAtDate = new ArrayList<Slot>();
-			byDate.put(slot.getDate(), slotsAtDate);
+			slotsAtDate = new HashMap<Room, Slot>();
+			byDate.put(date, slotsAtDate);
 		}
-		slotsAtDate.add(slot);
+		slotsAtDate.put(slot.getRoom(), slot);
+	}
+	
+	
+	public void add(Session session, Room room, Date date){
+		Slot slot = byDate.get(date).get(room);
+		slot.setSession(session);
+		slots.add(slot);
 	}
 
 	public List<Slot> getSlots() {
@@ -48,6 +61,11 @@ public class Solution {
 	public List<Session> getSessions() {
 		return sessions;
 	}
+
+	public List<Date> getDates() {
+		return dates;
+	}
+	
 
 	
 	

@@ -2,6 +2,8 @@ package entities;
 
 import java.util.List;
 
+import entities.Prerequisite;
+
 public class Session {
 	private String name;
 	private List<String> speaker;
@@ -29,6 +31,11 @@ public class Session {
 
 	public List<Prerequisite> getPreRequisites() {
 		return preRequisites;
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 	
 	

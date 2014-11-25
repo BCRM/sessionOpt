@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +8,6 @@ import org.uncommons.watchmaker.framework.CandidateFactory;
 
 import entities.Room;
 import entities.Session;
-import entities.Slot;
 import entities.Solution;
 
 
@@ -43,16 +41,18 @@ public class SOCandidateFactory implements CandidateFactory<Solution> {
 
 	@Override
 	public Solution generateRandomCandidate(Random rng) {
-		Solution result = new Solution(rooms, sessions);
-		Iterator<Session> it = sessions.iterator();
-		for (Room room: rooms){
-			for (Date date: startDates){
-				if (it.hasNext()){
-					result.add(new Slot(room, it.next(), date));
-				}
+		Solution result = new Solution(rooms, startDates);
+		for (Session session: sessions){
+			int rnd = rng.nextInt(result.getSlots().size());
+			while (result.getSlots().get(rnd).getSession() != null){
+				rnd = rng.nextInt(result.getSlots().size());
 			}
+			result.getSlots().get(rnd).setSession(session);
+
 		}
+		
 		return result;
 	}
 
 }
+

@@ -2,6 +2,9 @@ package entities;
 
 import java.util.List;
 
+import entities.Feature;
+import entities.Prerequisite;
+
 public class Room {
 	private String name;
 	private List<Feature> features;
