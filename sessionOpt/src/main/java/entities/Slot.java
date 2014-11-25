@@ -36,9 +36,5 @@ public class Slot {
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	
-	
-	
-	
-	
+
 }

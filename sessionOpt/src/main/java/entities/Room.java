@@ -17,14 +17,14 @@ public class Room {
 		features.add(f);
 	}
 	
-	public boolean fullfillsPrerequisite(Prerequisite req){
-		for (Feature f: features){
-			if (f.fullfills(req)){
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean fullfillsPrerequisite(Prerequisite req){
+//		for (Prerequisite r: pre){
+//			if (f.fullfills(req)){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
 	public String getName() {
 		return name;

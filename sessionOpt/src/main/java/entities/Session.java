@@ -9,7 +9,6 @@ public class Session {
 	private List<String> speaker;
 	private List<Prerequisite> preRequisites;
 	
-	
 	public Session(String name, List<String> speaker,
 			List<Prerequisite> preRequisites) {
 		super();
@@ -17,7 +16,15 @@ public class Session {
 		this.speaker = speaker;
 		this.preRequisites = preRequisites;
 	}
-
+	
+	public boolean isSatisfiedBy (Feature feature) {
+		for (Prerequisite pre: getPreRequisites()){
+			if (pre.isSatisfiedBy(feature)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public String getName() {
 		return name;
