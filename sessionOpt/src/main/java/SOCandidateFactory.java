@@ -43,11 +43,11 @@ public class SOCandidateFactory implements CandidateFactory<Solution> {
 	public Solution generateRandomCandidate(Random rng) {
 		Solution result = new Solution(rooms, startDates);
 		for (Session session: sessions){
-			int rnd = rng.nextInt(result.getSlots().size());
-			while (result.getSlots().get(rnd).getSession() != null){
-				rnd = rng.nextInt(result.getSlots().size());
+			int rnd = rng.nextInt(result.getAmountOfSlots());
+			while (result.getSlot(rnd).getSession() != null){
+				rnd = rng.nextInt(result.getAmountOfSlots());
 			}
-			result.getSlots().get(rnd).setSession(session);
+			result.getSlot(rnd).setSession(session);
 
 		}
 		

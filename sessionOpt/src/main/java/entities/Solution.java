@@ -28,6 +28,11 @@ public class Solution {
 	public Solution(List<Room> rooms, List<Date> dates, List<Slot> slots){
 		this(rooms, dates);
 		this.slots = slots;
+		
+		//Lookup-Table aktuell halten
+		for (Slot slot: slots){
+			addSlotByDate(slot.getDate(), slot);
+		}
 	}
 	
 	private void addSlotByDate(Date date, Slot slot){
@@ -40,15 +45,19 @@ public class Solution {
 	}
 	
 	
-	public void add(Session session, Room room, Date date){
-		Slot slot = byDate.get(date).get(room);
-		slot.setSession(session);
-		slots.add(slot);
-	}
-
+	
 	public List<Slot> getSlots() {
 		return slots;
 	}
+
+	public int getAmountOfSlots(){
+		return slots.size();
+	}
+	
+	public Slot getSlot(int index){
+		return slots.get(index);
+	}
+
 
 	public void setSlots(List<Slot> slots) {
 		this.slots = slots;
@@ -67,6 +76,21 @@ public class Solution {
 	}
 	
 
-	
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for (Room room: getRooms()){
+			b.append("-------- " + room.getName() + "--------\n");
+			for (Date date: getDates()){
+				b.append("--> " + date.getHours() + " Uhr:");
+				if (byDate.get(date).get(room).getSession() != null){
+					b.append(byDate.get(date).get(room).getSession()+ "\n");
+				} else {
+					b.append(" --- FREI ---\n");
+				}
+			}
+		}
+		return b.toString();
+	}
 	
 }
