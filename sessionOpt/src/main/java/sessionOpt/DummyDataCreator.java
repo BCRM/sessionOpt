@@ -15,9 +15,6 @@ import sessionOpt.entities.prerequisites.BooleanPrerequisite;
 import sessionOpt.entities.prerequisites.IntegerPrerequisite;
 
 public class DummyDataCreator {
-	
-	private static int count = 1;
-	
 
 	static List<Date> createDummyStartDates(){
 		ArrayList<Date> result = new ArrayList<Date>();

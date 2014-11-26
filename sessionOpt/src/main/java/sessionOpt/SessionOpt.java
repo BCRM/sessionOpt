@@ -56,7 +56,7 @@ public class SessionOpt {
 
 		//Finding the result
 		long start = System.currentTimeMillis();
-		Solution result = engine.evolve(50, 1, new Stagnation(10, false));
+		Solution result = engine.evolve(50, 1, new Stagnation(10, fitnessEvaluator.isNatural()));
 		System.out.println("Calculation took " + (System.currentTimeMillis() - start) + "ms.");
 		System.out.println(result);
 	}
