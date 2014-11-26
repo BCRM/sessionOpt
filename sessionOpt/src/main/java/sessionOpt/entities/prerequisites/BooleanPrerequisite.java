@@ -1,24 +1,25 @@
 package sessionOpt.entities.prerequisites;
 
-import sessionOpt.SOFitnessEvaluator;
 import sessionOpt.entities.Feature;
 import sessionOpt.entities.Prerequisite;
 
 public class BooleanPrerequisite implements Prerequisite {
 	
 	private String name;
+	private int penalty;
 	
-	public BooleanPrerequisite(String name) {
+	public BooleanPrerequisite(String name, int unsatisfiedPenalty) {
 		this.name = name;
+		this.penalty = unsatisfiedPenalty;
 	}
 
 	@Override
 	public int getUnsatisfiedPenalty() {
-		return SOFitnessEvaluator.MEDIUM_PENALTY;
+		return penalty;
 	}
 
 	@Override
-	public int getHappiness(Feature feature) {
+	public double getHappiness(Feature feature) {
 		return 0;
 	}
 

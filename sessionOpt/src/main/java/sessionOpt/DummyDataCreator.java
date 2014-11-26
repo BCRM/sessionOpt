@@ -56,9 +56,9 @@ public class DummyDataCreator {
 	
 	static Map<String, Prerequisite> createDummyAudience(int size, boolean withBeamer) {
 		Map<String, Prerequisite> result = new HashMap<String, Prerequisite>();
-		result.put("Seats", new IntegerPrerequisite("Seats", size));
+		result.put("Seats", new IntegerPrerequisite("Seats", size, SOFitnessEvaluator.LARGE_PENALTY, SOFitnessEvaluator.MEDIUM_PENALTY, 1, 1));
 		if (withBeamer){
-			result.put("Beamer", new BooleanPrerequisite("Beamer"));
+			result.put("Beamer", new BooleanPrerequisite("Beamer", SOFitnessEvaluator.MEDIUM_PENALTY));
 		}
 		return result;
 	}
