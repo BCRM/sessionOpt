@@ -13,6 +13,7 @@ import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
+import org.uncommons.watchmaker.framework.termination.Stagnation;
 
 import sessionOpt.entities.Solution;
 import sessionOpt.operators.MutateOperator;
@@ -54,7 +55,9 @@ public class SessionOpt {
 		});
 
 		//Finding the result
-		Solution result = engine.evolve(50, 1, new GenerationCount(50));
+		long start = System.currentTimeMillis();
+		Solution result = engine.evolve(50, 1, new Stagnation(10, false));
+		System.out.println("Calculation took " + (System.currentTimeMillis() - start) + "ms.");
 		System.out.println(result);
 	}
 }
