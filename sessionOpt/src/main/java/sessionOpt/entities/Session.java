@@ -23,14 +23,10 @@ public class Session {
 		int result = 0;
 		if (getPreRequisites() != null) {
 			for (Prerequisite pre: getPreRequisites().values()) {
-				boolean foundFeature = false;
 				Feature feat = room.getFeatures().get(pre.getName()); 
 				if (feat != null) {
 					result += pre.getHappiness(feat);
-					foundFeature = true;
-				}
-				
-				if (!foundFeature) {
+				} else {
 					result += pre.getUnsatisfiedPenalty();
 				}
 			}
