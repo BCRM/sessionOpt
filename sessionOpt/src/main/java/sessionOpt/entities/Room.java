@@ -2,6 +2,8 @@ package sessionOpt.entities;
 
 import java.util.List;
 
+import sessionOpt.entities.features.BooleanFeature;
+
 public class Room {
 	private String name;
 	private List<Feature> features;
@@ -22,5 +24,24 @@ public class Room {
 	
 	public List<Feature> getFeatures() {
 		return features;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		b.append(getName());
+		b.append(" [");
+		boolean foundFeature = false;
+		for (Feature feat: getFeatures()){
+			if (feat instanceof BooleanFeature){
+				b.append (feat.getName() + " ");
+				foundFeature = true;
+			}
+		}
+		if (foundFeature){
+			b.deleteCharAt(b.length()-1);
+		}
+		b.append("]");
+		return b.toString();
 	}
 }

@@ -17,6 +17,7 @@ import sessionOpt.entities.prerequisites.IntegerPrerequisite;
 public class DummyDataCreator {
 	
 	private static int count = 1;
+	
 
 	static List<Date> createDummyStartDates(){
 		ArrayList<Date> result = new ArrayList<Date>();
@@ -30,21 +31,21 @@ public class DummyDataCreator {
 		return result;
 	}
 
-	static List<String> createRandomSpeakers(){
+	static List<String> createRandomSpeakers(String name){
 		ArrayList<String> result = new ArrayList<String>();
-		result.add("Speaker #" + count++);
+		result.add("Speaker " + name);
 		return result;
 	}
 
 	static List<Session> createDummySessions(){
 		ArrayList<Session> result = new ArrayList<Session>();
-		result.add(new Session("Stricken 1x1", createRandomSpeakers(),createDummyAudience(10, true)));
-		result.add(new Session("Stricken 2x2", createRandomSpeakers(),createDummyAudience(20)));
-		result.add(new Session("Stricken 3x3", createRandomSpeakers(),createDummyAudience(10)));
-		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers(),createDummyAudience(20)));
-		result.add(new Session("PHP is the new cobol", createRandomSpeakers(),createDummyAudience(30)));
-		result.add(new Session("Futurama", createRandomSpeakers(),createDummyAudience(40)));
-		result.add(new Session("Java. Eine Insel...", createRandomSpeakers(),createDummyAudience(50)));
+		result.add(new Session("Stricken 1x1", createRandomSpeakers("Achim"),createDummyAudience(10, true)));
+		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim"),createDummyAudience(20)));
+		result.add(new Session("Stricken 3x3", createRandomSpeakers("Achim"),createDummyAudience(10)));
+		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers("Froschinella"),createDummyAudience(20)));
+		result.add(new Session("PHP is the new cobol", createRandomSpeakers("Günther"),createDummyAudience(30)));
+		result.add(new Session("Futurama", createRandomSpeakers("Herbert"),createDummyAudience(40)));
+		result.add(new Session("Java. Eine Insel...", createRandomSpeakers("Hans"),createDummyAudience(50)));
 		return result;
 	}
 	

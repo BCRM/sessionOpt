@@ -25,6 +25,10 @@ public class Solution {
 		}
 	}
 	
+	public HashMap<Room, Slot> getSlotsByDate(Date date){
+		return byDate.get(date);
+	}
+	
 	public Solution(List<Room> rooms, List<Date> dates, List<Slot> slots){
 		this(rooms, dates);
 		this.slots = slots;
@@ -80,9 +84,9 @@ public class Solution {
 	public String toString() {
 		StringBuilder b = new StringBuilder();
 		for (Room room: getRooms()){
-			b.append("-------- " + room.getName() + "--------\n");
+			b.append("-------- " + room + "--------\n");
 			for (Date date: getDates()){
-				b.append("--> " + date.getHours() + " Uhr:");
+				b.append(date.getHours() + " Uhr:");
 				if (byDate.get(date).get(room).getSession() != null){
 					b.append(byDate.get(date).get(room).getSession()+ " -- COST: " +byDate.get(date).get(room).getHappiness() + "\n");
 				} else {

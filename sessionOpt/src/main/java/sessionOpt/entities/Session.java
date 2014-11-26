@@ -2,6 +2,8 @@ package sessionOpt.entities;
 
 import java.util.List;
 
+import sessionOpt.entities.prerequisites.BooleanPrerequisite;
+
 
 public class Session {
 	private String name;
@@ -54,7 +56,14 @@ public class Session {
 	
 	@Override
 	public String toString() {
-		return getName() + " -- " + getSpeaker();
+		StringBuilder result = new StringBuilder();
+		result.append(getName() + " -- " + getSpeaker());
+		for (Prerequisite pre: getPreRequisites()){
+			if (pre instanceof BooleanPrerequisite){
+				result.append("-- NEED:" + pre.getName());
+			}
+		}
+		return result.toString();
 	}
 	
 	
