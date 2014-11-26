@@ -23,7 +23,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 	@Override
 	public double getFitness(Solution candidate,
 			List<? extends Solution> population) {
-		double result = 0;
+		double result = 10000;
 		//Bedingungen der Slots
 		for (Slot slot: candidate.getSlots()) {
 			result += slot.getHappiness();
