@@ -1,20 +1,20 @@
 package sessionOpt.entities;
 
-import java.util.List;
+import java.util.Map;
 
 import sessionOpt.entities.features.BooleanFeature;
 
 public class Room {
 	private String name;
-	private List<Feature> features;
+	private Map<String, Feature> features;
 	
-	public Room(String name, List<Feature> features){
+	public Room(String name, Map<String, Feature> features){
 		this.name = name;
 		this.features = features;
 	}
 	
 	public void addFeature(Feature f){
-		features.add(f);
+		features.put(f.getName(), f);
 	}
 	
 	public String getName() {
@@ -22,7 +22,7 @@ public class Room {
 	}
 	
 	
-	public List<Feature> getFeatures() {
+	public Map<String, Feature> getFeatures() {
 		return features;
 	}
 	
@@ -32,7 +32,7 @@ public class Room {
 		b.append(getName());
 		b.append(" [");
 		boolean foundFeature = false;
-		for (Feature feat: getFeatures()){
+		for (Feature feat: getFeatures().values()){
 			if (feat instanceof BooleanFeature){
 				b.append (feat.getName() + " ");
 				foundFeature = true;

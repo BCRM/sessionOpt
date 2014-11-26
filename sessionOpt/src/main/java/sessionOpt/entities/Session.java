@@ -1,6 +1,7 @@
 package sessionOpt.entities;
 
 import java.util.List;
+import java.util.Map;
 
 import sessionOpt.entities.prerequisites.BooleanPrerequisite;
 
@@ -8,10 +9,10 @@ import sessionOpt.entities.prerequisites.BooleanPrerequisite;
 public class Session {
 	private String name;
 	private List<String> speaker;
-	private List<Prerequisite> preRequisites;
+	private Map<String, Prerequisite> preRequisites;
 	
 	public Session(String name, List<String> speaker,
-			List<Prerequisite> preRequisites) {
+			Map<String, Prerequisite> preRequisites) {
 		super();
 		this.name = name;
 		this.speaker = speaker;
@@ -21,15 +22,12 @@ public class Session {
 	public int getHappiness(Room room) {
 		int result = 0;
 		if (getPreRequisites() != null) {
-			for (Prerequisite pre: getPreRequisites()) {
+			for (Prerequisite pre: getPreRequisites().values()) {
 				boolean foundFeature = false;
-				if (room.getFeatures() != null) {
-					for (Feature feat: room.getFeatures()) {
-						if (pre.getName().equals(feat.getName())){
-							result += pre.getHappiness(feat);
-							foundFeature = true;
-						}
-					}
+				Feature feat = room.getFeatures().get(pre.getName()); 
+				if (feat != null) {
+					result += pre.getHappiness(feat);
+					foundFeature = true;
 				}
 				
 				if (!foundFeature) {
@@ -50,7 +48,7 @@ public class Session {
 	}
 
 
-	public List<Prerequisite> getPreRequisites() {
+	public Map<String, Prerequisite> getPreRequisites() {
 		return preRequisites;
 	}
 	
@@ -58,9 +56,9 @@ public class Session {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append(getName() + " -- " + getSpeaker());
-		for (Prerequisite pre: getPreRequisites()){
+		for (Prerequisite pre: getPreRequisites().values()){
 			if (pre instanceof BooleanPrerequisite){
-				result.append("-- NEED:" + pre.getName());
+				result.append(" -- NEED:" + pre.getName());
 			}
 		}
 		return result.toString();

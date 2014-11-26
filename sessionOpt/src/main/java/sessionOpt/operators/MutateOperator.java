@@ -39,6 +39,7 @@ public class MutateOperator implements EvolutionaryOperator<Solution> {
 			newSlot.setSession(slot2.getSession());
 			slots.add(newSlot);
 			
+			
 			newSlot = new Slot(slot2.getRoom(), slot2.getDate());
 			newSlot.setSession(slot1.getSession());
 			slots.add(newSlot);

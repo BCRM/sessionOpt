@@ -3,7 +3,9 @@ package sessionOpt;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sessionOpt.entities.Feature;
 import sessionOpt.entities.Prerequisite;
@@ -30,14 +32,16 @@ public class DummyDataCreator {
 
 	static List<String> createRandomSpeakers(String name){
 		ArrayList<String> result = new ArrayList<String>();
-		result.add(name);
+		for (String subName: name.split(",")){
+			result.add(subName);
+		}
 		return result;
 	}
 
 	static List<Session> createDummySessions(){
 		ArrayList<Session> result = new ArrayList<Session>();
-		result.add(new Session("Stricken 1x1", createRandomSpeakers("Achim"),createDummyAudience(10, true)));
-		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim"),createDummyAudience(10)));
+		result.add(new Session("Stricken 1x1", createRandomSpeakers("Achim,AxelF"),createDummyAudience(10, true)));
+		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim,AxelF"),createDummyAudience(10)));
 		result.add(new Session("Stricken 3x3", createRandomSpeakers("Achim"),createDummyAudience(10)));
 		result.add(new Session("Bierbrauen I", createRandomSpeakers("AxelF"),createDummyAudience(20)));
 		result.add(new Session("PHP is the C", createRandomSpeakers("Günni"),createDummyAudience(30)));
@@ -46,15 +50,15 @@ public class DummyDataCreator {
 		return result;
 	}
 	
-	static List<Prerequisite> createDummyAudience(int size) {
+	static Map<String, Prerequisite> createDummyAudience(int size) {
 		return createDummyAudience(size, false);
 	}
 	
-	static List<Prerequisite> createDummyAudience(int size, boolean withBeamer) {
-		ArrayList<Prerequisite> result = new ArrayList<Prerequisite>();
-		result.add(new IntegerPrerequisite("Seats", size));
+	static Map<String, Prerequisite> createDummyAudience(int size, boolean withBeamer) {
+		Map<String, Prerequisite> result = new HashMap<String, Prerequisite>();
+		result.put("Seats", new IntegerPrerequisite("Seats", size));
 		if (withBeamer){
-			result.add(new BooleanPrerequisite("Beamer"));
+			result.put("Beamer", new BooleanPrerequisite("Beamer"));
 		}
 		return result;
 	}
@@ -67,11 +71,11 @@ public class DummyDataCreator {
 		return result;
 	}
 	
-	static List<Feature> createDummySeats(int size, boolean withBeamer) {
-		ArrayList<Feature> result = new ArrayList<Feature>();
-		result.add(new IntegerFeature("Seats", size));
+	static Map<String, Feature> createDummySeats(int size, boolean withBeamer) {
+		HashMap<String, Feature> result = new HashMap<String, Feature>();
+		result.put("Seats", new IntegerFeature("Seats", size));
 		if (withBeamer){
-			result.add(new BooleanFeature("Beamer"));
+			result.put("Beamer", new BooleanFeature("Beamer"));
 		}
 		return result;
 	}
