@@ -90,7 +90,7 @@ public class Solution {
 				if (byDate.get(date).get(room).getSession() != null){
 					b.append(byDate.get(date).get(room).getSession()+ " -- COST: " +byDate.get(date).get(room).getHappiness() + "\n");
 				} else {
-					b.append(" --- FREI ---\n");
+					b.append("------- FREI -------\n");
 				}
 			}
 		}

@@ -41,11 +41,15 @@ public class SessionOpt {
 		//Debugging
 		engine.addEvolutionObserver(new EvolutionObserver<Solution>()
 		{
+			private double lastValue = -1;
 		    public void populationUpdate(PopulationData<? extends Solution> data)
 		    {
-		        System.out.printf("Generation %d: %s\n",
-		                          data.getGenerationNumber(),
-		                          data.getBestCandidateFitness());
+		    	if (data.getBestCandidateFitness() != lastValue){
+			        System.out.printf("Generation %d: %s\n",
+			                          data.getGenerationNumber(),
+			                          data.getBestCandidateFitness());
+			        lastValue = data.getBestCandidateFitness();
+		    	}
 		    }
 		});
 

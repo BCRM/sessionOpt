@@ -24,7 +24,7 @@ public class DummyDataCreator {
 		Calendar c = Calendar.getInstance();
 		Date today = new Date();
 		c.setTime(today);
-		for (int i = 9; i < 12; i++){
+		for (int i = 10; i < 13; i++){
 			c.set(Calendar.HOUR_OF_DAY, i);
 			result.add(c.getTime());
 		}
@@ -33,19 +33,19 @@ public class DummyDataCreator {
 
 	static List<String> createRandomSpeakers(String name){
 		ArrayList<String> result = new ArrayList<String>();
-		result.add("Speaker " + name);
+		result.add(name);
 		return result;
 	}
 
 	static List<Session> createDummySessions(){
 		ArrayList<Session> result = new ArrayList<Session>();
 		result.add(new Session("Stricken 1x1", createRandomSpeakers("Achim"),createDummyAudience(10, true)));
-		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim"),createDummyAudience(20)));
+		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim"),createDummyAudience(10)));
 		result.add(new Session("Stricken 3x3", createRandomSpeakers("Achim"),createDummyAudience(10)));
-		result.add(new Session("Bierbrauen leicht gemacht", createRandomSpeakers("Froschinella"),createDummyAudience(20)));
-		result.add(new Session("PHP is the new cobol", createRandomSpeakers("Günther"),createDummyAudience(30)));
-		result.add(new Session("Futurama", createRandomSpeakers("Herbert"),createDummyAudience(40)));
-		result.add(new Session("Java. Eine Insel...", createRandomSpeakers("Hans"),createDummyAudience(50)));
+		result.add(new Session("Bierbrauen I", createRandomSpeakers("AxelF"),createDummyAudience(20)));
+		result.add(new Session("PHP is the C", createRandomSpeakers("Günni"),createDummyAudience(30)));
+		result.add(new Session("Futurama!!!!", createRandomSpeakers("Herbi"),createDummyAudience(40)));
+		result.add(new Session("Java? Java!!", createRandomSpeakers("HansS"),createDummyAudience(50)));
 		return result;
 	}
 	
