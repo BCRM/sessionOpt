@@ -23,7 +23,7 @@ public class Session {
 				boolean foundFeature = false;
 				if (room.getFeatures() != null) {
 					for (Feature feat: room.getFeatures()) {
-						if (pre.getSatisfyingFeature().equals(feat.getClass())) {
+						if (pre.getName().equals(feat.getName())){
 							result += pre.getHappiness(feat);
 							foundFeature = true;
 						}

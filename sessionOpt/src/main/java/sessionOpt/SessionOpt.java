@@ -3,7 +3,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.uncommons.watchmaker.framework.CachingFitnessEvaluator;
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
 import org.uncommons.watchmaker.framework.EvolutionObserver;
