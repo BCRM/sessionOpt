@@ -36,7 +36,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 				if (slot.getSession() != null){
 					for (String speaker: slot.getSession().getSpeaker()){
 						if (!speakers.add(speaker)){
-							//Ah shit. Gleicher Speaker am gleichen Tag. No go!
+							//Ah shit. Gleicher Speaker zur gleichen Uhrzeit. No go!
 							result += HORRENDOUS_PENALTY;
 						}
 					}
