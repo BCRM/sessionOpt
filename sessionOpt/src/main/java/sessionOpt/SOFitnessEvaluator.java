@@ -18,6 +18,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 	public static int SMALL_PENALTY = 10;
 	public static int MEDIUM_PENALTY = 100;
 	public static int LARGE_PENALTY = 1000;
+	public static int VERY_LARGE_PENALTY = 10000;
 	public static int HORRENDOUS_PENALTY = 1000000;
 
 	@Override
@@ -26,7 +27,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 		double result = 10000;
 		//Bedingungen der Slots
 		for (Slot slot: candidate.getSlots()) {
-			result += slot.getHappiness();
+			result += slot.getHappiness(candidate.getPenalties());
 		}
 		//Generelle Bedingungen
 		Set<String> speakers = new HashSet<String>();
@@ -37,7 +38,7 @@ public class SOFitnessEvaluator implements FitnessEvaluator<Solution>{
 					for (String speaker: slot.getSession().getSpeaker()){
 						if (!speakers.add(speaker)){
 							//Ah shit. Gleicher Speaker zur gleichen Uhrzeit. No go!
-							result += HORRENDOUS_PENALTY;
+							result += candidate.getPenalties().getPenaltyFor(Penalties.SAME_SPEAKER_TWICE_ON_A_DATE);
 						}
 					}
 				}

@@ -1,21 +1,40 @@
 package sessionOpt.entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import sessionOpt.Penalties;
+import sessionOpt.entities.features.IntegerFeature;
+import sessionOpt.tools.Tools;
 
 public class Solution {
 	private List<Room> rooms;
 	private List<Session> sessions;
 	private List<Date> dates;
+	private final Penalties penalties;
+	private static List<String> remarks = new ArrayList<String>();
 	
 	private List<Slot> slots = new ArrayList<Slot>();
 	private HashMap<Date, HashMap<Room, Slot>> byDate = new HashMap<Date, HashMap<Room, Slot>>();
 	
-	public Solution(List<Room> rooms, List<Date> dates){
+	public Solution(List<Room> rooms, List<Date> dates, int amountOfSessions, Penalties penalties){
+		//Wenn wir zuwenig Platz haben, machen wir virtuelle Overflow-Räume
+		int i = 1;
+		while (rooms.size() * dates.size() < amountOfSessions){
+			addRemark("Had to add an Overflow Room since there were " + amountOfSessions + " sessions for " + (rooms.size() * dates.size()) + " slots.");
+			Map<String, Feature> features = new HashMap<String, Feature>();
+			features.put(IntegerFeature.FEATURE_SEATS, new IntegerFeature(IntegerFeature.FEATURE_SEATS, -100));
+			rooms.add(new Room("Overflow #" + i++, features));
+		}
 		this.rooms = rooms;
 		this.dates = dates;
+		this.penalties = penalties;
+	
 		for (Room room: rooms){
 			for (Date date: dates){
 				Slot slot = new Slot(room, date);
@@ -23,16 +42,31 @@ public class Solution {
 				addSlotByDate(date, slot);
 			}
 		}
+		
+		//Für die Ausgabe das schön sortieren
+		Collections.sort(rooms, new Comparator<Room>(){
+			@Override
+			public int compare(Room o1, Room o2) {
+				IntegerFeature r1 = (IntegerFeature) o1.getFeatures().get("Seats");
+				IntegerFeature r2 = (IntegerFeature) o2.getFeatures().get("Seats");
+				if (r1.getSize() > r2.getSize()){
+					return 1;
+				} else if (r1.getSize() < r2.getSize()){
+					return -1;
+				} else return o1.getName().compareTo(o2.getName());
+			}
+		});
+		
 	}
 	
 	public HashMap<Room, Slot> getSlotsByDate(Date date){
 		return byDate.get(date);
 	}
 	
-	public Solution(List<Room> rooms, List<Date> dates, List<Slot> slots){
-		this(rooms, dates);
+	public Solution(List<Room> rooms, List<Date> dates, List<Slot> slots, Penalties penalties){
+		this(rooms, dates, -1, penalties);
 		this.slots = slots;
-		
+	
 		//Lookup-Table aktuell halten
 		for (Slot slot: slots){
 			addSlotByDate(slot.getDate(), slot);
@@ -86,15 +120,35 @@ public class Solution {
 		for (Room room: getRooms()){
 			b.append("-------- " + room + "--------\n");
 			for (Date date: getDates()){
-				b.append(date.getHours() + " Uhr:");
+				b.append(Tools.appendSpaces(Integer.toString(date.getHours()), 2) + " Uhr:");
 				if (byDate.get(date).get(room).getSession() != null){
-					b.append(byDate.get(date).get(room).getSession()+ " -- COST: " +byDate.get(date).get(room).getHappiness() + "\n");
+					b.append(byDate.get(date).get(room).getSession()+ " -- COST: " +byDate.get(date).get(room).getHappiness(penalties) + "\n");
 				} else {
 					b.append("------- FREI -------\n");
 				}
 			}
+			b.append("\n");
+		}
+		if (getRemarks().size() > 0){
+			b.append("\n");
+			b.append("Remarks:\n");
+			for (String string: getRemarks()){
+				b.append(string + "\n");
+			}
 		}
 		return b.toString();
 	}
+
+	public Penalties getPenalties() {
+		return penalties;
+	}
 	
+	public void addRemark(String s){
+		remarks.add(s);
+	}
+
+	public List<String> getRemarks() {
+		return remarks;
+	}
+		
 }

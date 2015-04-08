@@ -3,15 +3,23 @@ package sessionOpt.entities;
 import java.util.Map;
 
 import sessionOpt.entities.features.BooleanFeature;
+import sessionOpt.entities.features.IntegerFeature;
 
 public class Room {
 	private String name;
 	private Map<String, Feature> features;
+	private boolean isOverflow = false;
 	
 	public Room(String name, Map<String, Feature> features){
 		this.name = name;
 		this.features = features;
 	}
+	
+	public Room(String name, Map<String, Feature> features, boolean isOverflow){
+		this(name, features);
+		this.isOverflow = isOverflow; 
+	}
+
 	
 	public void addFeature(Feature f){
 		features.put(f.getName(), f);
@@ -36,6 +44,9 @@ public class Room {
 			if (feat instanceof BooleanFeature){
 				b.append (feat.getName() + " ");
 				foundFeature = true;
+			} else if (feat instanceof IntegerFeature){
+				b.append (feat.getName() + "(" + ((IntegerFeature)feat).getSize() + ") ");
+				foundFeature = true;
 			}
 		}
 		if (foundFeature){
@@ -44,4 +55,9 @@ public class Room {
 		b.append("]");
 		return b.toString();
 	}
+
+	public boolean isOverflow() {
+		return isOverflow;
+	}
+	
 }

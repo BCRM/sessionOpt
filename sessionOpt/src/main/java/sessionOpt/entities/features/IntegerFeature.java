@@ -4,6 +4,8 @@ import sessionOpt.entities.Feature;
 
 public class IntegerFeature implements Feature {
 	
+	public static String FEATURE_SEATS = "Seats";
+	
 	private int size;
 	private String name;
 	

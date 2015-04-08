@@ -1,4 +1,4 @@
-package sessionOpt;
+package sessionOpt.tools;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sessionOpt.Penalties;
+import sessionOpt.SOFitnessEvaluator;
 import sessionOpt.entities.Feature;
 import sessionOpt.entities.Prerequisite;
 import sessionOpt.entities.Room;
@@ -18,19 +20,21 @@ import sessionOpt.entities.prerequisites.IntegerPrerequisite;
 
 public class DummyDataCreator {
 
-	static List<Date> createDummyStartDates(){
+	public List<Date> createDummyStartDates(){
 		ArrayList<Date> result = new ArrayList<Date>();
 		Calendar c = Calendar.getInstance();
 		Date today = new Date();
 		c.setTime(today);
-		for (int i = 10; i < 13; i++){
+		for (int i = 9; i <= 14; i++){
 			c.set(Calendar.HOUR_OF_DAY, i);
+			c.set(Calendar.MINUTE, 0);
+			c.set(Calendar.SECOND, 0);
 			result.add(c.getTime());
 		}
 		return result;
 	}
 
-	static List<String> createRandomSpeakers(String name){
+	public List<String> createRandomSpeakers(String name){
 		ArrayList<String> result = new ArrayList<String>();
 		for (String subName: name.split(",")){
 			result.add(subName);
@@ -38,7 +42,7 @@ public class DummyDataCreator {
 		return result;
 	}
 
-	static List<Session> createDummySessions(){
+	public List<Session> createDummySessions(List<Date> dates){
 		ArrayList<Session> result = new ArrayList<Session>();
 		result.add(new Session("Stricken 1x1", createRandomSpeakers("Achim,AxelF"),createDummyAudience(10, true)));
 		result.add(new Session("Stricken 2x2", createRandomSpeakers("Achim,AxelF"),createDummyAudience(10)));
@@ -50,20 +54,20 @@ public class DummyDataCreator {
 		return result;
 	}
 	
-	static Map<String, Prerequisite> createDummyAudience(int size) {
+	public Map<String, Prerequisite> createDummyAudience(int size) {
 		return createDummyAudience(size, false);
 	}
 	
-	static Map<String, Prerequisite> createDummyAudience(int size, boolean withBeamer) {
+	public Map<String, Prerequisite> createDummyAudience(int size, boolean withBeamer) {
 		Map<String, Prerequisite> result = new HashMap<String, Prerequisite>();
-		result.put("Seats", new IntegerPrerequisite("Seats", size, SOFitnessEvaluator.LARGE_PENALTY, SOFitnessEvaluator.MEDIUM_PENALTY, 1, -1));
+		result.put("Seats", new IntegerPrerequisite("Seats", size, SOFitnessEvaluator.LARGE_PENALTY, 20, 10, -1));
 		if (withBeamer){
-			result.put("Beamer", new BooleanPrerequisite("Beamer", SOFitnessEvaluator.MEDIUM_PENALTY));
+			result.put("Beamer", new BooleanPrerequisite("Beamer", SOFitnessEvaluator.MEDIUM_PENALTY * 2));
 		}
 		return result;
 	}
 
-	static List<Room> createDummyRooms(){
+	public List<Room> createDummyRooms(){
 		ArrayList<Room> result = new ArrayList<Room>();
 		result.add(new Room("Aachen", createDummySeats(10, false)));
 		result.add(new Room("Mainz", createDummySeats(20, true)));
@@ -71,13 +75,20 @@ public class DummyDataCreator {
 		return result;
 	}
 	
-	static Map<String, Feature> createDummySeats(int size, boolean withBeamer) {
+	public Map<String, Feature> createDummySeats(int size, boolean withBeamer) {
 		HashMap<String, Feature> result = new HashMap<String, Feature>();
 		result.put("Seats", new IntegerFeature("Seats", size));
 		if (withBeamer){
 			result.put("Beamer", new BooleanFeature("Beamer"));
 		}
 		return result;
+	}
+
+	public Penalties createPenalties() {
+		Penalties pen = new Penalties(1000);
+		pen.setPenalty(Penalties.SAME_SPEAKER_TWICE_ON_A_DATE, SOFitnessEvaluator.HORRENDOUS_PENALTY);
+		pen.setPenalty(Penalties.NOT_MATCHING_FIXED_DATE, SOFitnessEvaluator.VERY_LARGE_PENALTY);
+		return pen;
 	}
 
 }

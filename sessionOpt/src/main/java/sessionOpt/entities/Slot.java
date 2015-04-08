@@ -2,8 +2,7 @@ package sessionOpt.entities;
 
 import java.util.Date;
 
-import sessionOpt.entities.Room;
-import sessionOpt.entities.Session;
+import sessionOpt.Penalties;
 
 
 public class Slot {
@@ -32,12 +31,12 @@ public class Slot {
 		this.session = session;
 	}
 	
-	public int getHappiness() {
+	public int getHappiness(Penalties pen) {
 		if (session == null) {
 			return 0;
 		}
 		
-		return session.getHappiness(room);
+		return session.getHappiness(room, date, pen);
 	}
 
 }
