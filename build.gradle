@@ -15,10 +15,15 @@ subprojects {
 	}
 	
 	ext.libraryVersions = [
-		log4j: '2.0-rc1',
-		watchmaker: '0.7.1',
-		uncommonsMath: '1.2.2',
-		guava: '16.0.1',
-		googleCollections: '1.0-rc2'
+		log4j: '+',
+		watchmaker: '+',
+		uncommonsMath: '+',
+		guava: '+',
+		googleCollections: '+',
+		xstream: '+',
+		xmlpull: '+',
+		xpp3: '+',
+		jettison: '+',
+		staxapi: '+'
 	]	
 }
