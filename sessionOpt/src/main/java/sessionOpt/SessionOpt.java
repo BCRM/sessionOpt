@@ -25,18 +25,19 @@ import sessionOpt.tools.DummyDataCreator;
 import sessionOpt.tools.TotalRandomDummyDataCreator;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 
 
 
 public class SessionOpt {
 	
 
-	public String calculate(Request request){
+	public static Solution calculate(Request request){
 		Random rng = new org.uncommons.maths.random.MersenneTwisterRNG();
 		return calculate(request, rng);
 	}
 	
-	private static String calculate(Request request, Random rng){
+	private static Solution calculate(Request request, Random rng){
 		CandidateFactory<Solution> candidateFactory = new SOCandidateFactory(request.getRooms(), request.getSessions(), request.getDates(), request.getPenalties());
 		
 		List<EvolutionaryOperator<Solution>> operators = new LinkedList<EvolutionaryOperator<Solution>>();
@@ -66,7 +67,7 @@ public class SessionOpt {
 		});
 
 		Solution result = engine.evolve(80, 10, new Stagnation(1000, fitnessEvaluator.isNatural()));
-		return result.toString();
+		return result;
 	}
 	
 	private static Random prepareRandom(boolean createNewSeed){
@@ -92,13 +93,23 @@ public class SessionOpt {
 		//Finding the result
 		long start = System.currentTimeMillis();
 		Random rng = prepareRandom(args.length > 0 && args[0].equals("new"));
-		DummyDataCreator creator = new TotalRandomDummyDataCreator(rng);
-		List<Date> dates = creator.createDummyStartDates();
-		Request request = new Request(creator.createDummyRooms(), creator.createDummySessions(dates), dates, creator.createPenalties());
-		System.out.println(new XStream().toXML(request));
+		Request request;
+		if (args.length > 0 && args[0].equals("load")){
+			XStream xstream = new XStream(new JettisonMappedXmlDriver());
+			request = (Request)xstream.fromXML(new File("input.json"));
+		} else {
+			DummyDataCreator creator = new TotalRandomDummyDataCreator(rng);
+			List<Date> dates = creator.createDummyStartDates();
+			request = new Request(creator.createDummyRooms(), creator.createDummySessions(dates), dates, creator.createPenalties());
+		}
+		XStream xstream = new XStream(new JettisonMappedXmlDriver());
+        xstream.setMode(XStream.NO_REFERENCES);
+		System.out.println(xstream.toXML(request));
 		
-		System.out.println(calculate(request, rng));
+		Solution finalSolution = calculate(request, rng);
+		System.out.println(finalSolution);
 		System.out.println("Calculation took " + (System.currentTimeMillis() - start) + "ms.");
+		System.out.println(xstream.toXML(finalSolution));
 
 	}
 }

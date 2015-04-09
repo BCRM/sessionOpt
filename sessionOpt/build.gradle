@@ -6,4 +6,9 @@ dependencies {
 	compile group: 'org.uncommons.maths', name: 'uncommons-maths', version: ext.libraryVersions.uncommonsMath
 	compile group: 'com.google.guava', name: 'guava', version: ext.libraryVersions.guava
 	compile group: 'com.google.collections', name: 'google-collections', version: ext.libraryVersions.googleCollections
+	compile group: 'com.thoughtworks.xstream', name: 'xstream', version: ext.libraryVersions.xstream
+	compile group: 'xmlpull', name: 'xmlpull', version: ext.libraryVersions.xmlpull
+	compile group: 'xpp3', name: 'xpp3', version: ext.libraryVersions.xpp3
+	compile group: 'org.codehaus.jettison', name: 'jettison', version: ext.libraryVersions.jettison
+	compile group: 'javax.xml.stream', name: 'stax-api', version: ext.libraryVersions.staxapi
 }

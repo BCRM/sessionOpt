@@ -88,6 +88,7 @@ public class DummyDataCreator {
 		Penalties pen = new Penalties(1000);
 		pen.setPenalty(Penalties.SAME_SPEAKER_TWICE_ON_A_DATE, SOFitnessEvaluator.HORRENDOUS_PENALTY);
 		pen.setPenalty(Penalties.NOT_MATCHING_FIXED_DATE, SOFitnessEvaluator.VERY_LARGE_PENALTY);
+		pen.setPenalty(Penalties.NO_ROOM_FOUND_AT_ALL, SOFitnessEvaluator.VERY_LARGE_PENALTY);
 		return pen;
 	}
 

@@ -41,8 +41,14 @@ public class SOCandidateFactory implements CandidateFactory<Solution> {
 	@Override
 	public List<Solution> generateInitialPopulation(int populationSize,
 			Collection<Solution> seedCandidates, Random rng) {
-		// TODO What for?
-		return generateInitialPopulation(populationSize, rng);
+		List<Solution> result = new ArrayList<Solution>();
+		//Erst mal alle aufnehmen, die zum Seed gehören
+		result.addAll(seedCandidates);
+		//Fehlen noch welche?
+		if (result.size() < populationSize){
+			result.addAll(generateInitialPopulation(populationSize - result.size(), rng));
+		}
+		return result;
 	}
 
 	@Override

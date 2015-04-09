@@ -9,6 +9,7 @@ public class Slot {
 	private Room room;
 	private Session session;
 	private Date date;
+	private int occuredPenalties;
 	
 	public Slot(Room room, Date date){
 		this.room = room;
@@ -33,10 +34,11 @@ public class Slot {
 	
 	public int getHappiness(Penalties pen) {
 		if (session == null) {
-			return 0;
+			occuredPenalties = 0; 
+		} else {
+			occuredPenalties = session.getHappiness(room, date, pen);
 		}
-		
-		return session.getHappiness(room, date, pen);
+		return occuredPenalties;
 	}
 
 }

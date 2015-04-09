@@ -41,11 +41,24 @@ public class TotalRandomDummyDataCreator extends DummyDataCreator{
 			
 			
 			int chance = r.nextInt(100);
+			Date fixedDate = null;
 			if (chance <= 10){
-				result.add(new Session(sessionName, createRandomSpeakers(speakerNames.substring(1)),createDummyAudience(r.nextInt(9) * 10 + 10, false), dates.get(r.nextInt(dates.size()))));		
-			} else {
-				result.add(new Session(sessionName, createRandomSpeakers(speakerNames.substring(1)),createDummyAudience(r.nextInt(9) * 10 + 10, false)));		
+				fixedDate = dates.get(r.nextInt(dates.size()));
 			}
+			WishDates wishDates = null;
+			chance = r.nextInt(100);
+			if (chance <= 10){
+				List<Date> wishes = new ArrayList<Date>();
+				for (Date date: dates){
+					chance = r.nextInt(100);
+					if (chance <= 30){
+						wishes.add(date);
+					}
+				}
+				wishDates = new WishDates(wishes, 50);
+			}
+			
+			result.add(new Session(sessionName, createRandomSpeakers(speakerNames.substring(1)),createDummyAudience(r.nextInt(9) * 10 + 10, false), fixedDate, wishDates));		
 		}
 
 		return result;
