@@ -58,7 +58,7 @@ public class TotalRandomDummyDataCreator extends DummyDataCreator{
 				wishDates = new WishDates(wishes, 50);
 			}
 			
-			result.add(new Session(sessionName, createRandomSpeakers(speakerNames.substring(1)),createDummyAudience(r.nextInt(9) * 10 + 10, false), fixedDate, wishDates));		
+			result.add(new Session(sessionName, createRandomSpeakers(speakerNames.substring(1)),createDummyAudience(r.nextInt(9) * 10 + 10, r.nextBoolean()), fixedDate, wishDates));		
 		}
 
 		return result;

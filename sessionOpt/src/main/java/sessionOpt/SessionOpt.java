@@ -30,18 +30,12 @@ import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 
 
 public class SessionOpt {
-	
 
-	public static Solution calculate(Request request){
-		Random rng = new org.uncommons.maths.random.MersenneTwisterRNG();
-		return calculate(request, rng);
-	}
-	
 	private static Solution calculate(Request request, Random rng){
 		CandidateFactory<Solution> candidateFactory = new SOCandidateFactory(request.getRooms(), request.getSessions(), request.getDates(), request.getPenalties());
 		
 		List<EvolutionaryOperator<Solution>> operators = new LinkedList<EvolutionaryOperator<Solution>>();
-		//operators.add(new CrossoverOperator()); //TODO
+		//Wir haben nur einen Operator - Nur Mutation. Eine Kombination bring nicht viel
 		operators.add(new MutateOperator());
 		
 		EvolutionaryOperator<Solution> evolutionaryOperator = new EvolutionPipeline<Solution>(operators);
@@ -66,10 +60,16 @@ public class SessionOpt {
 		    }
 		});
 
+		//Rechne solange, bis sich in 1000 Generationen keine Verbesserung mehr ergibt.
 		Solution result = engine.evolve(80, 10, new Stagnation(1000, fitnessEvaluator.isNatural()));
 		return result;
 	}
 	
+	/**
+	 * Lädt (wenn er nicht einen neuen erzeugen soll) den Seed aus der seed.txt und erzeugt ein neues Random Objekt.
+	 * @param createNewSeed
+	 * @return Random
+	 */
 	private static Random prepareRandom(boolean createNewSeed){
 		MersenneTwisterRNG rng;
 		File seedFile = new File("seed.txt");
@@ -89,27 +89,62 @@ public class SessionOpt {
 		return rng;
 	}
 
+	/**
+	 * Usage:
+	 * sessionOpt newSeed -> Creates a new seed
+	 * sessionOpt load <Input> [Output] -> Load from inputFile, write result to outputFile or console if empty
+	 * sessionOpt Create <RequestOutput> <ResultOutput> -> Create a new random request and reply 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//Finding the result
 		long start = System.currentTimeMillis();
-		Random rng = prepareRandom(args.length > 0 && args[0].equals("new"));
+		
+		Random rng = prepareRandom(args.length > 0 && args[0].equals("newSeed"));
 		Request request;
+		XStream xstream = new XStream(new JettisonMappedXmlDriver());
+        xstream.setMode(XStream.NO_REFERENCES);
+		File outputFile = null;
 		if (args.length > 0 && args[0].equals("load")){
-			XStream xstream = new XStream(new JettisonMappedXmlDriver());
-			request = (Request)xstream.fromXML(new File("input.json"));
+			//Sollen wir eine Eingabe laden?
+			request = (Request)xstream.fromXML(new File(args[1]));
+			//Wenn wir ein drittes Argument haben, ist das die Ausgabedatei
+			if (args.length > 2){
+				outputFile = new File(args[2]);
+			}
 		} else {
+			//Nein? Dann erzeugen wir was zufälliges
 			DummyDataCreator creator = new TotalRandomDummyDataCreator(rng);
 			List<Date> dates = creator.createDummyStartDates();
 			request = new Request(creator.createDummyRooms(), creator.createDummySessions(dates), dates, creator.createPenalties());
+			if (args.length > 1){
+				try {
+					xstream.toXML(request, new FileWriter(new File(args[1])));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (args.length > 2){
+				outputFile = new File(args[2]);
+			}
 		}
-		XStream xstream = new XStream(new JettisonMappedXmlDriver());
-        xstream.setMode(XStream.NO_REFERENCES);
-		System.out.println(xstream.toXML(request));
 		
+		//Die eigentliche Arbeit
 		Solution finalSolution = calculate(request, rng);
 		System.out.println(finalSolution);
 		System.out.println("Calculation took " + (System.currentTimeMillis() - start) + "ms.");
-		System.out.println(xstream.toXML(finalSolution));
+		
+		
+		//Ausgabe
+        if (outputFile != null){
+        	try {
+				xstream.toXML(finalSolution, new FileWriter(outputFile));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } else {
+    		System.out.println(xstream.toXML(finalSolution));
+        }
 
 	}
 }
