@@ -19,7 +19,14 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.termination.Stagnation;
 
+import sessionOpt.entities.Room;
+import sessionOpt.entities.Session;
+import sessionOpt.entities.Slot;
 import sessionOpt.entities.Solution;
+import sessionOpt.entities.features.BooleanFeature;
+import sessionOpt.entities.features.IntegerFeature;
+import sessionOpt.entities.prerequisites.BooleanPrerequisite;
+import sessionOpt.entities.prerequisites.IntegerPrerequisite;
 import sessionOpt.operators.MutateOperator;
 import sessionOpt.tools.DummyDataCreator;
 import sessionOpt.tools.TotalRandomDummyDataCreator;
@@ -88,6 +95,22 @@ public class SessionOpt {
 		}
 		return rng;
 	}
+	
+	public static XStream prepareXStream(){
+		XStream xstream = new XStream(new JettisonMappedXmlDriver());
+        xstream.setMode(XStream.NO_REFERENCES);
+        xstream.alias("booleanPreRequisite", BooleanPrerequisite.class);
+        xstream.alias("booleanFeature", BooleanFeature.class);
+        xstream.alias("intPreRequisite", IntegerPrerequisite.class);
+        xstream.alias("intFeature", IntegerFeature.class);
+        
+        xstream.alias("Room", Room.class);
+        xstream.alias("Slot", Slot.class);
+        xstream.alias("Session", Session.class);
+        xstream.alias("Solution", Solution.class);
+        xstream.alias("Request", Request.class);
+        return xstream;
+	}
 
 	/**
 	 * Usage:
@@ -99,11 +122,10 @@ public class SessionOpt {
 	public static void main(String[] args) {
 		//Finding the result
 		long start = System.currentTimeMillis();
-		
+		XStream xstream = prepareXStream();
 		Random rng = prepareRandom(args.length > 0 && args[0].equals("newSeed"));
 		Request request;
-		XStream xstream = new XStream(new JettisonMappedXmlDriver());
-        xstream.setMode(XStream.NO_REFERENCES);
+
 		File outputFile = null;
 		if (args.length > 0 && args[0].equals("load")){
 			//Sollen wir eine Eingabe laden?
